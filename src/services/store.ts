@@ -10,7 +10,7 @@ import {
 } from 'react-redux';
 import { constructorSlice } from '../slices/constructor';
 import { userSlice } from '../slices/user';
-import { userOrder } from '../slices/orders_list';
+import { userOrders } from '../slices/orders_list';
 
 const rootReducer = () => {}; // Заменить на импорт настоящего редьюсера
 
@@ -21,7 +21,7 @@ const store = configureStore({
     [userSlice.name]: userSlice.reducer,
     [feedSlice.name]: feedSlice.reducer,
     [newOrderSlice.name]: newOrderSlice.reducer,
-    [userOrder.name]: userOrder.reducer
+    [userOrders.name]: userOrders.reducer
   },
   devTools: process.env.NODE_ENV !== 'production'
 });

@@ -15,7 +15,7 @@ const initialState: TOrdersState = {
   isLoading: true
 };
 
-export const userOrder = createSlice({
+export const userOrders = createSlice({
   name: 'orders',
   initialState,
   reducers: {},
@@ -37,4 +37,4 @@ export const userOrder = createSlice({
   }
 });
 
-export const { listOfOrders } = userOrder.selectors;
+export const { listOfOrders } = userOrders.selectors;
