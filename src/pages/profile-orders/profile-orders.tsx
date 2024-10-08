@@ -7,9 +7,10 @@ import { useDispatch, useSelector } from '../../services/store';
 export const ProfileOrders: FC = () => {
   const dispatch = useDispatch();
   const orders: TOrder[] = useSelector(listOfOrders);
+  console.log(orders);
   useEffect(() => {
     dispatch(getUserOrders());
   }, []);
-  console.log(orders);
+
   return <ProfileOrdersUI orders={orders} />;
 };

@@ -7,12 +7,12 @@ export const getUserOrders = createAsyncThunk('order/getOrders', async () =>
 
 export interface TOrdersState {
   orders: Array<TOrder>;
-  isLoading: boolean;
+  loading: boolean;
 }
 
 const initialState: TOrdersState = {
   orders: [],
-  isLoading: true
+  loading: true
 };
 
 export const userOrders = createSlice({
@@ -26,15 +26,17 @@ export const userOrders = createSlice({
     builder
       .addCase(getUserOrders.fulfilled, (state, action) => {
         state.orders = action.payload;
-        state.isLoading = false;
+        state.loading = false;
       })
       .addCase(getUserOrders.pending, (state) => {
-        state.isLoading = true;
+        state.loading = true;
       })
       .addCase(getUserOrders.rejected, (state) => {
-        state.isLoading = false;
+        state.loading = false;
       });
   }
 });
 
 export const { listOfOrders } = userOrders.selectors;
+
+export default userOrders;

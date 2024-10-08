@@ -3,16 +3,39 @@ import {
   loginUserApi,
   getUserApi,
   updateUserApi,
-  logoutApi
+  logoutApi,
+  TRegisterData,
+  TLoginData
 } from '@api';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { TUser } from '@utils-types';
+import { deleteCookie, setCookie } from '../utils/cookie';
 
 export const apiGetUser = createAsyncThunk('user/getuser', getUserApi);
 export const updateUser = createAsyncThunk('user/update', updateUserApi);
-export const register = createAsyncThunk('user/register', registerUserApi);
-export const login = createAsyncThunk('user/login', loginUserApi);
-export const logout = createAsyncThunk('user/logout', logoutApi);
+export const register = createAsyncThunk(
+  'registerUser',
+  async (userData: TRegisterData) => {
+    const data = await registerUserApi(userData);
+    setCookie('accessToken', data.accessToken);
+    localStorage.setItem('refreshToken', data.refreshToken);
+    return data;
+  }
+);
+export const login = createAsyncThunk(
+  'loginUser',
+  async (userData: TLoginData) => {
+    const data = await loginUserApi(userData);
+    setCookie('accessToken', data.accessToken);
+    localStorage.setItem('refreshToken', data.refreshToken);
+    return data;
+  }
+);
+export const logout = createAsyncThunk('user/logout', async () => {
+  await logoutApi();
+  deleteCookie('accessToken');
+  localStorage.removeItem('refreshToken');
+});
 
 export interface TUserState {
   isAuthChecked: boolean;
