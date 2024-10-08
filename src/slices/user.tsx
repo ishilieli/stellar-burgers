@@ -33,12 +33,6 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {},
-  selectors: {
-    isAuthCheckedSelector: (state: TUserState) => state.isAuthChecked,
-    getUser: (state) => state.user,
-    getUserName: (state) => state.user.name,
-    getError: (state) => state.error
-  },
   extraReducers: (builder) => {
     builder
       .addCase(register.fulfilled, (state, action) => {
@@ -91,8 +85,16 @@ export const userSlice = createSlice({
       state.isAuthChecked = false;
       state.user = { email: '', name: '' };
     });
+  },
+  selectors: {
+    isAuthCheckedSelector: (state: TUserState) => state.isAuthChecked,
+    getUser: (state) => state.user,
+    getUserName: (state) => state.user.name,
+    getError: (state) => state.error
   }
 });
 
 export const { isAuthCheckedSelector, getUser, getUserName, getError } =
   userSlice.selectors;
+
+export default userSlice;

@@ -107,6 +107,14 @@ const App = () => {
           }
         />
         <Route
+          path={routes.profileOrders}
+          element={
+            <ProtectedRoute>
+              <ProfileOrders />
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path={routes.profileOrdersNum}
           element={
             <ProtectedRoute>

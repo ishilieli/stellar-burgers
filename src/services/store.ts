@@ -10,7 +10,9 @@ import {
 } from 'react-redux';
 import { constructorSlice } from '../slices/constructor';
 import { userSlice } from '../slices/user';
-import { userOrder } from '../slices/user_order';
+import { userOrder } from '../slices/orders_list';
+
+const rootReducer = () => {}; // Заменить на импорт настоящего редьюсера
 
 const store = configureStore({
   reducer: {

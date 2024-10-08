@@ -8,14 +8,14 @@ export const placeNewOrder = createAsyncThunk(
 );
 
 export interface TNewOrderState {
-  orderRequest: boolean;
-  orderModalData: TOrder | null;
+  loading: boolean;
+  order: TOrder | null;
   error: string | undefined;
 }
 
 const initialState: TNewOrderState = {
-  orderRequest: false,
-  orderModalData: null,
+  loading: false,
+  order: null,
   error: undefined
 };
 
@@ -26,23 +26,25 @@ export const newOrderSlice = createSlice({
     resetOrder: (state) => initialState
   },
   selectors: {
-    getOrderRequest: (state) => state.orderRequest,
-    getOrderModalData: (state) => state.orderModalData
+    getOrderLoad: (state) => state.loading,
+    getOrderData: (state) => state.order
   },
   extraReducers: (builder) => {
     builder
       .addCase(placeNewOrder.fulfilled, (state, action) => {
-        state.orderRequest = false;
-        state.orderModalData = action.payload.order;
+        state.loading = false;
+        state.order = action.payload.order;
       })
       .addCase(placeNewOrder.rejected, (state, action) => {
         state.error = action.error.message;
       })
       .addCase(placeNewOrder.pending, (state) => {
-        state.orderRequest = true;
+        state.loading = true;
       });
   }
 });
 
 export const { resetOrder } = newOrderSlice.actions;
-export const { getOrderRequest, getOrderModalData } = newOrderSlice.selectors;
+export const { getOrderLoad, getOrderData } = newOrderSlice.selectors;
+
+export default newOrderSlice;

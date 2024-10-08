@@ -1,11 +1,13 @@
 import { FC, SyntheticEvent, useState } from 'react';
 import { RegisterUI } from '@ui-pages';
-import { useDispatch } from '../../services/store';
+import { useDispatch, useSelector } from '../../services/store';
 import { TRegisterData } from '@api';
-import { register } from '../../slices/user';
+import { getError, register } from '../../slices/user';
 
 export const Register: FC = () => {
   const dispatch = useDispatch();
+  const error = useSelector(getError);
+
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -18,13 +20,14 @@ export const Register: FC = () => {
       password: password
     };
     console.log(userData);
+    console.log(error);
 
     dispatch(register(userData));
   };
 
   return (
     <RegisterUI
-      errorText=''
+      errorText={error}
       email={email}
       userName={userName}
       password={password}

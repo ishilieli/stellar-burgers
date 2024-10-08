@@ -5,8 +5,8 @@ import { clearAll, constructorSelector } from '../../slices/constructor';
 import { useDispatch, useSelector } from '../../services/store';
 import {
   placeNewOrder,
-  getOrderModalData,
-  getOrderRequest,
+  getOrderData,
+  getOrderLoad,
   resetOrder
 } from '../../slices/new_order';
 import { isAuthCheckedSelector } from '../../slices/user';
@@ -17,8 +17,8 @@ export const BurgerConstructor: FC = () => {
   const navigate = useNavigate();
 
   const constructorItems = useSelector(constructorSelector.selectItems);
-  const orderRequest = useSelector(getOrderRequest);
-  const orderModalData = useSelector(getOrderModalData);
+  const orderRequest = useSelector(getOrderLoad);
+  const orderModalData = useSelector(getOrderData);
   const isAuthenticated = useSelector(isAuthCheckedSelector);
 
   const handleOrderClick = () => {
