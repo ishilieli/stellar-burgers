@@ -8,10 +8,10 @@ export interface TFeedsState {
   total: number;
   totalToday: number;
   isLoading: boolean;
-  error: string | undefined;
+  error?: string | undefined;
 }
 
-const initialState: TFeedsState = {
+export const initialState: TFeedsState = {
   orders: [],
   total: 0,
   totalToday: 0,
