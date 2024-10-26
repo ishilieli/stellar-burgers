@@ -1,17 +1,15 @@
-const ingredients = {
-  bun: '[data-cy=bun-ingredients]',
-  mains: '[data-cy=mains-ingredients]',
-  sauces: '[data-cy=sauces-ingredients]'
-};
 describe('ingredient addition test in the constructor', () => {
   beforeEach(() => {
     cy.intercept('GET', 'api/ingredients', { fixture: 'ingredients.json' });
     cy.viewport(1300, 800);
     cy.visit('');
+    cy.get('[data-cy=bun-ingredients]').as('bunIngredients');
+    cy.get('[data-cy=mains-ingredients]').as('mainsIngredients');
+    cy.get('[data-cy=sauces-ingredients]').as('saucesIngredients');
     cy.get('[data-cy=constructor-ingredients]').as('constructorIngredients');
   });
   it('add bun', () => {
-    cy.get(ingredients.bun).contains('Добавить').click();
+    cy.get('@bunIngredients').contains('Добавить').click();
     cy.get('[data-cy=constructor-bun-1]')
       .contains('Ингредиент 1')
       .should('exist');
@@ -21,8 +19,8 @@ describe('ingredient addition test in the constructor', () => {
   });
 
   it('add ingredient', () => {
-    cy.get(ingredients.mains).contains('Добавить').click();
-    cy.get(ingredients.sauces).contains('Добавить').click();
+    cy.get('@mainsIngredients').contains('Добавить').click();
+    cy.get('@saucesIngredients').contains('Добавить').click();
     cy.get('@constructorIngredients').contains('Ингредиент 2').should('exist');
     cy.get('@constructorIngredients').contains('Ингредиент 4').should('exist');
   });
@@ -68,13 +66,16 @@ describe('order creation test', () => {
     cy.setCookie('accessToken', 'testAccessToken');
     cy.viewport(1300, 800);
     cy.visit('');
+    cy.get('[data-cy=bun-ingredients]').as('bunIngredients');
+    cy.get('[data-cy=mains-ingredients]').as('mainsIngredients');
+    cy.get('[data-cy=sauces-ingredients]').as('saucesIngredients');
     cy.get('[data-cy=constructor-ingredients]').as('constructorIngredients');
   });
 
   it('add ingredients and create order', () => {
-    cy.get(ingredients.bun).contains('Добавить').click();
-    cy.get(ingredients.mains).contains('Добавить').click();
-    cy.get(ingredients.sauces).contains('Добавить').click();
+    cy.get('@bunIngredients').contains('Добавить').click();
+    cy.get('@mainsIngredients').contains('Добавить').click();
+    cy.get('@saucesIngredients').contains('Добавить').click();
     cy.get('[data-cy=order-button]').click();
 
     cy.get('[data-cy=order-number]').as('orderNumber');
