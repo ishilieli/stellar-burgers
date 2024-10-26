@@ -51,13 +51,13 @@ describe('userOrders slice', () => {
       }
     ];
 
-    const pendingState = userOrders.reducer(
+    const newState = userOrders.reducer(
       initialState,
       getUserOrders.pending('', undefined)
     );
 
     const fulfilledState = userOrders.reducer(
-      pendingState,
+      newState,
       getUserOrders.fulfilled(mockOrders, '', undefined)
     );
 
@@ -66,16 +66,14 @@ describe('userOrders slice', () => {
   });
 
   it('rejected state', () => {
-    const error = new Error('Error');
-
-    const pendingState = userOrders.reducer(
+    const newState = userOrders.reducer(
       initialState,
       getUserOrders.pending('', undefined)
     );
 
     const rejectedState = userOrders.reducer(
-      pendingState,
-      getUserOrders.rejected(error, '', undefined)
+      newState,
+      getUserOrders.rejected(new Error('Error'), '', undefined)
     );
 
     expect(rejectedState.loading).toBe(false);
